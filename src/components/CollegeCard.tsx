@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import React from 'react';
 import { MapPin, IndianRupee, TrendingUp, Plus, Check, Briefcase } from 'lucide-react';
 import { motion } from 'motion/react';
 import RatingStars from './RatingStars';
@@ -49,10 +50,9 @@ function getInitials(name: string) {
 
 interface CollegeCardProps {
   college: CollegeCardData;
-  variant?: 'default' | 'compact';
 }
 
-export default function CollegeCard({ college, variant = 'default' }: CollegeCardProps) {
+export default function CollegeCard({ college }: CollegeCardProps) {
   const { isSelected, addCollege, removeCollege, canAdd } = useCompare();
   const selected = isSelected(college.id);
 

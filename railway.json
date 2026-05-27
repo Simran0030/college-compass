@@ -1,0 +1,4 @@
+{
+  "buildCommand": "npm run build",
+  "startCommand": "node --loader=tsx dist/server/entry.js"
+}
