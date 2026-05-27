@@ -10,7 +10,6 @@ import * as schema from './schema';
 
 let poolConnection: mysql.Pool | null = null;
 let dbInstance: ReturnType<typeof drizzle> | null = null;
-let dbError: Error | null = null;
 
 // Try to get database configuration
 try {
@@ -32,24 +31,14 @@ try {
   });
 
   // Create Drizzle instance
-  dbInstance = drizzle(poolConnection, { schema, mode: 'default' });
-} catch (error) {
+  dbInstance = drizzle(poolConnection as any, { schema, mode: 'default' });
+} catch {
   // Store error but don't fail - database is optional for some deployments
-  dbError = error instanceof Error ? error : new Error(String(error));
+  // Error will be thrown when database is actually used
 }
 
-// Export database with lazy error throwing
-export const db = new Proxy(dbInstance || {}, {
-  get: (target, prop) => {
-    if (dbError && dbInstance === null) {
-      throw new Error(
-        `Database is not available: ${dbError.message}. ` +
-        `Please configure the database config file or set DATABASE_URL environment variable.`
-      );
-    }
-    return (dbInstance as any)?.[prop];
-  },
-});
+// Export database instance (or empty object if not available)
+export const db = (dbInstance || {}) as unknown as ReturnType<typeof drizzle>;
 
 /**
  * Test database connection
