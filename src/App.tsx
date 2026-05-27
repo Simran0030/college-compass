@@ -39,7 +39,7 @@ const routeTree: RouteObject[] = [
 ];
 
 const router = createBrowserRouter(routeTree, {
-  basename: '/college-compass-',
+  basename: '/',
 });
 
 export default function App() {
