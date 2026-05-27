@@ -14,26 +14,28 @@ import { Home, Users, Settings, BarChart } from 'lucide-react';
 
 export default function DashboardPage() {
   return (
-    <Dashboard config={{
-      sidebar: {
-        logo: { text: 'My App' },
-        navigation: {
-          main: [
-            { title: 'Dashboard', href: '/', icon: Home, active: true },
-            { title: 'Users', href: '/users', icon: Users, badge: 12 },
-            { title: 'Analytics', href: '/analytics', icon: BarChart },
-            { title: 'Settings', href: '/settings', icon: Settings }
-          ]
-        }
-      },
-      header: {
-        user: {
-          name: 'John Doe',
-          email: 'john@example.com',
-          initials: 'JD'
+    <Dashboard config={
+      {
+        sidebar: {
+          logo: { text: 'My App' },
+          navigation: {
+            main: [
+              { title: 'Dashboard', href: '/', icon: Home, active: true },
+              { title: 'Users', href: '/users', icon: Users, badge: 12 },
+              { title: 'Analytics', href: '/analytics', icon: BarChart },
+              { title: 'Settings', href: '/settings', icon: Settings }
+            ]
+          }
+        },
+        header: {
+          user: {
+            name: 'John Doe',
+            email: 'john@example.com',
+            initials: 'JD'
+          }
         }
       }
-    }}>
+    }>
       {/* Dashboard content goes here */}
       <div className="space-y-6">
         <h1 className="text-3xl font-bold">Dashboard</h1>
@@ -140,92 +142,94 @@ import { Button } from '@/components/ui/button';
 
 export default function AdminDashboard() {
   return (
-    <Dashboard config={{
-      sidebar: {
-        logo: {
-          text: 'AdminPanel',
-          image: '/logo.svg',
-          href: '/'
+    <Dashboard config={
+      {
+        sidebar: {
+          logo: {
+            text: 'AdminPanel',
+            image: '/logo.svg',
+            href: '/'
+          },
+          navigation: {
+            main: [
+              { 
+                title: 'Dashboard', 
+                href: '/', 
+                icon: Home, 
+                active: true 
+              },
+              { 
+                title: 'Users', 
+                href: '/users', 
+                icon: Users,
+                badge: 128
+              },
+              { 
+                title: 'Documents', 
+                href: '/documents', 
+                icon: FileText,
+                badge: 'New'
+              },
+              { 
+                title: 'Analytics', 
+                href: '/analytics', 
+                icon: BarChart3 
+              },
+              { 
+                title: 'Billing', 
+                href: '/billing', 
+                icon: CreditCard 
+              }
+            ],
+            secondary: [
+              { 
+                title: 'Settings', 
+                href: '/settings', 
+                icon: Settings 
+              },
+              { 
+                title: 'Help', 
+                href: '/help', 
+                icon: HelpCircle 
+              }
+            ]
+          },
+          footer: (
+            <div className="space-y-2">
+              <div className="text-xs text-gray-500">Free Plan</div>
+              <Button size="sm" className="w-full">
+                Upgrade to Pro
+              </Button>
+            </div>
+          )
         },
-        navigation: {
-          main: [
-            { 
-              title: 'Dashboard', 
-              href: '/', 
-              icon: Home, 
-              active: true 
-            },
-            { 
-              title: 'Users', 
-              href: '/users', 
-              icon: Users,
-              badge: 128
-            },
-            { 
-              title: 'Documents', 
-              href: '/documents', 
-              icon: FileText,
-              badge: 'New'
-            },
-            { 
-              title: 'Analytics', 
-              href: '/analytics', 
-              icon: BarChart3 
-            },
-            { 
-              title: 'Billing', 
-              href: '/billing', 
-              icon: CreditCard 
-            }
-          ],
-          secondary: [
-            { 
-              title: 'Settings', 
-              href: '/settings', 
-              icon: Settings 
-            },
-            { 
-              title: 'Help', 
-              href: '/help', 
-              icon: HelpCircle 
-            }
-          ]
-        },
-        footer: (
-          <div className="space-y-2">
-            <div className="text-xs text-gray-500">Free Plan</div>
-            <Button size="sm" className="w-full">
-              Upgrade to Pro
+        header: {
+          search: {
+            enabled: true,
+            placeholder: 'Search users, documents...'
+          },
+          notifications: {
+            enabled: true,
+            count: 3
+          },
+          user: {
+            name: 'John Doe',
+            email: 'john@example.com',
+            avatar: '/avatar.jpg',
+            initials: 'JD'
+          },
+          actions: (
+            <Button variant="outline" size="sm">
+              Quick Action
             </Button>
-          </div>
-        )
-      },
-      header: {
-        search: {
-          enabled: true,
-          placeholder: 'Search users, documents...'
+          )
         },
-        notifications: {
-          enabled: true,
-          count: 3
-        },
-        user: {
-          name: 'John Doe',
-          email: 'john@example.com',
-          avatar: '/avatar.jpg',
-          initials: 'JD'
-        },
-        actions: (
-          <Button variant="outline" size="sm">
-            Quick Action
-          </Button>
-        )
-      },
-      main: {
-        maxWidth: '2xl',
-        padding: true
+        main: {
+          maxWidth: '2xl',
+          padding: true
+        }
       }
-    }}>
+    }>
       {/* Dashboard Content */}
       <div className="space-y-6">
         {/* Page Header */}
@@ -284,22 +288,24 @@ import { Home, Settings } from 'lucide-react';
 
 export default function SimpleDashboard() {
   return (
-    <Dashboard config={{
-      sidebar: {
-        logo: { text: 'MyApp' },
-        navigation: {
-          main: [
-            { title: 'Home', href: '/', icon: Home, active: true },
-            { title: 'Settings', href: '/settings', icon: Settings }
-          ]
+    <Dashboard config={
+      {
+        sidebar: {
+          logo: { text: 'MyApp' },
+          navigation: {
+            main: [
+              { title: 'Home', href: '/', icon: Home, active: true },
+              { title: 'Settings', href: '/settings', icon: Settings }
+            ]
+          }
+        },
+        header: {
+          search: { enabled: false },
+          notifications: { enabled: false },
+          user: { name: 'User', initials: 'U' }
         }
-      },
-      header: {
-        search: { enabled: false },
-        notifications: { enabled: false },
-        user: { name: 'User', initials: 'U' }
       }
-    }}>
+    }>
       <div>
         <h1 className="text-2xl font-bold mb-4">Welcome</h1>
         <p>Your content here</p>
@@ -325,33 +331,35 @@ import { Button } from '@/components/ui/button';
 
 export default function AnalyticsDashboard() {
   return (
-    <Dashboard config={{
-      sidebar: {
-        logo: { text: 'Analytics' },
-        navigation: {
-          main: [
-            { title: 'Overview', href: '/', icon: BarChart3, active: true },
-            { title: 'Reports', href: '/reports', icon: PieChart },
-            { title: 'Trends', href: '/trends', icon: TrendingUp },
-            { title: 'Schedule', href: '/schedule', icon: Calendar }
-          ]
+    <Dashboard config={
+      {
+        sidebar: {
+          logo: { text: 'Analytics' },
+          navigation: {
+            main: [
+              { title: 'Overview', href: '/', icon: BarChart3, active: true },
+              { title: 'Reports', href: '/reports', icon: PieChart },
+              { title: 'Trends', href: '/trends', icon: TrendingUp },
+              { title: 'Schedule', href: '/schedule', icon: Calendar }
+            ]
+          }
+        },
+        header: {
+          actions: (
+            <>
+              <Button variant="outline" size="sm">
+                <Filter className="h-4 w-4 mr-2" />
+                Filter
+              </Button>
+              <Button variant="outline" size="sm">
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+            </>
+          )
         }
-      },
-      header: {
-        actions: (
-          <>
-            <Button variant="outline" size="sm">
-              <Filter className="h-4 w-4 mr-2" />
-              Filter
-            </Button>
-            <Button variant="outline" size="sm">
-              <Download className="h-4 w-4 mr-2" />
-              Export
-            </Button>
-          </>
-        )
       }
-    }}>
+    }>
       <div className="space-y-4">
         {/* Date Range Selector */}
         <div className="flex items-center justify-between">
