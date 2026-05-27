@@ -3,9 +3,7 @@ import { lazy } from 'react';
 import HomePage from './pages/index';
 import ProdNotFoundPage from './pages/_404';
 
-const NotFoundPage = import.meta.env.DEV
-  ? lazy(() => import('../dev-tools/src/PageNotFound'))
-  : ProdNotFoundPage;
+const NotFoundPage = ProdNotFoundPage;
 
 const CollegesPage = lazy(() => import('./pages/colleges'));
 const CollegeDetailPage = lazy(() => import('./pages/college-detail'));

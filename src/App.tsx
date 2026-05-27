@@ -5,8 +5,6 @@ import {
   createBrowserRouter,
   type RouteObject,
 } from 'react-router-dom';
-
-import AiroErrorBoundary from '../dev-tools/src/AiroErrorBoundary';
 import CookieBannerErrorBoundary from '@/components/CookieBannerErrorBoundary';
 import RootLayout from './layouts/RootLayout';
 import Spinner from './components/Spinner';
@@ -27,9 +25,6 @@ const SpinnerFallback = () => (
   </div>
 );
 
-// Wrap the agent-editable flat `routes` array in a layout route so ScrollRestoration
-// + shared chrome live once above every page. Keeping the wrap here (instead of
-// in routes.tsx) preserves the agent's simple flat-route contract.
 const routeTree: RouteObject[] = [
   {
     element: (
@@ -43,25 +38,15 @@ const routeTree: RouteObject[] = [
   },
 ];
 
-const router = createBrowserRouter(routeTree);
+const router = createBrowserRouter(routeTree, {
+  basename: '/college-compass-',
+});
 
 export default function App() {
-  const tree = <RouterProvider router={router} />;
-  const withDevBoundary =
-    import.meta.env.MODE === 'development' ? (
-      <AiroErrorBoundary>{tree}</AiroErrorBoundary>
-    ) : (
-      tree
-    );
   return (
     <WishlistProvider>
       <CompareProvider>
-        {withDevBoundary}
-        {/*
-          CookieBanner reads document.cookie and subscribes to browser events.
-          App.tsx is client-only (entry-server.tsx renders the route tree
-          directly without importing App), so no SSR gate is needed here.
-        */}
+        <RouterProvider router={router} />
         <CookieBannerErrorBoundary>
           <Suspense fallback={null}>
             <CookieBanner />

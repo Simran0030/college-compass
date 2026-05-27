@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # V8 App Template
 
 A modern, production-ready web application template built with Vite, React, and TypeScript. Designed for AI-assisted development with component introspection, layout systems, and excellent developer experience.
@@ -310,3 +311,8 @@ Built with amazing open-source tools:
 ---
 
 **Happy coding! 🎉**
+=======
+# college-compass-
+>>>>>>> a3be6408e3b9223f994ee157e53b6af8bfde6942
+#   c o l l e g e _ c o m p a s s  
+ 
