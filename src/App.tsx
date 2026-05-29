@@ -6,8 +6,10 @@ import {
   type RouteObject,
 } from 'react-router-dom';
 import CookieBannerErrorBoundary from '@/components/CookieBannerErrorBoundary';
+import RootErrorBoundary from '@/components/RootErrorBoundary';
 import RootLayout from './layouts/RootLayout';
 import Spinner from './components/Spinner';
+import ErrorPage from './pages/error';
 import { routes } from './routes';
 import { CompareProvider } from './contexts/CompareContext';
 import { WishlistProvider } from './contexts/WishlistContext';
@@ -34,6 +36,7 @@ const routeTree: RouteObject[] = [
         </RootLayout>
       </Suspense>
     ),
+    errorElement: <ErrorPage />,
     children: routes,
   },
 ];
@@ -44,15 +47,17 @@ const router = createBrowserRouter(routeTree, {
 
 export default function App() {
   return (
-    <WishlistProvider>
-      <CompareProvider>
-        <RouterProvider router={router} />
-        <CookieBannerErrorBoundary>
-          <Suspense fallback={null}>
-            <CookieBanner />
-          </Suspense>
-        </CookieBannerErrorBoundary>
-      </CompareProvider>
-    </WishlistProvider>
+    <RootErrorBoundary>
+      <WishlistProvider>
+        <CompareProvider>
+          <RouterProvider router={router} />
+          <CookieBannerErrorBoundary>
+            <Suspense fallback={null}>
+              <CookieBanner />
+            </Suspense>
+          </CookieBannerErrorBoundary>
+        </CompareProvider>
+      </WishlistProvider>
+    </RootErrorBoundary>
   );
 }
