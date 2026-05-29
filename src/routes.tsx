@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 import HomePage from './pages/index';
 import ProdNotFoundPage from './pages/_404';
+import ErrorPage from './pages/error';
 
 const NotFoundPage = ProdNotFoundPage;
 
@@ -14,14 +15,14 @@ const LoginPage = lazy(() => import('./pages/auth/LoginPage'));
 const SignupPage = lazy(() => import('./pages/auth/SignupPage'));
 
 export const routes: RouteObject[] = [
-  { path: '/',             element: <HomePage /> },
-  { path: '/colleges',     element: <CollegesPage /> },
-  { path: '/colleges/:id', element: <CollegeDetailPage /> },
-  { path: '/compare',      element: <ComparePage /> },
-  { path: '/predictor',    element: <PredictorPage /> },
-  { path: '/wishlist',     element: <WishlistPage /> },
-  { path: '/login',        element: <LoginPage /> },
-  { path: '/signup',       element: <SignupPage /> },
+  { path: '/',             element: <HomePage />, errorElement: <ErrorPage /> },
+  { path: '/colleges',     element: <CollegesPage />, errorElement: <ErrorPage /> },
+  { path: '/colleges/:id', element: <CollegeDetailPage />, errorElement: <ErrorPage /> },
+  { path: '/compare',      element: <ComparePage />, errorElement: <ErrorPage /> },
+  { path: '/predictor',    element: <PredictorPage />, errorElement: <ErrorPage /> },
+  { path: '/wishlist',     element: <WishlistPage />, errorElement: <ErrorPage /> },
+  { path: '/login',        element: <LoginPage />, errorElement: <ErrorPage /> },
+  { path: '/signup',       element: <SignupPage />, errorElement: <ErrorPage /> },
   { path: '*',             element: <NotFoundPage /> },
 ];
 
