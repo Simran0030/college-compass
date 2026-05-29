@@ -6,6 +6,7 @@ import { Helmet } from '@dr.pogodin/react-helmet';
 import { useWishlist } from '@/contexts/WishlistContext';
 import CollegeCard, { type CollegeCardData } from '@/components/CollegeCard';
 import CardSkeleton from '@/components/CardSkeleton';
+import { withBaseUrl } from '@/lib/site-meta';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -29,6 +30,7 @@ const HEARTS = Array.from({ length: 12 }, (_, i) => ({
 
 export default function WishlistPage() {
   const { wishlistIds, clearWishlist, count } = useWishlist();
+  const pageUrl = withBaseUrl('/wishlist');
 
   // Fetch all colleges and filter client-side (avoids needing a batch endpoint)
   const { data, isLoading } = useQuery({
@@ -48,12 +50,12 @@ export default function WishlistPage() {
       <Helmet>
         <title>My Saved Colleges — College Compass</title>
         <meta name="description" content="Your shortlisted colleges on College Compass. Review, compare, and make your final decision from your saved institutions." />
-        <link rel="canonical" href="https://osovrwkgq3.preview.c36.airoapp.ai/wishlist" />
+        <link rel="canonical" href={pageUrl} />
         <meta name="robots" content="noindex, nofollow" />
         <meta property="og:title" content="My Saved Colleges — College Compass" />
         <meta property="og:description" content="Review and compare your shortlisted colleges on College Compass." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://osovrwkgq3.preview.c36.airoapp.ai/wishlist" />
+        <meta property="og:url" content={pageUrl} />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="My Saved Colleges — College Compass" />
         <meta name="twitter:description" content="Review and compare your shortlisted colleges on College Compass." />

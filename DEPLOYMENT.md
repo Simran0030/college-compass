@@ -109,6 +109,10 @@ VITE_API_URL=https://your-domain.com/api
 NODE_ENV=production
 PORT=3000
 
+# Authentication (optional)
+# BETTER_AUTH_SECRET=your-secret-here
+# BETTER_AUTH_TRUSTED_ORIGINS=https://your-domain.com
+
 # Database (if using)
 DATABASE_URL=mysql://user:pass@host/dbname
 

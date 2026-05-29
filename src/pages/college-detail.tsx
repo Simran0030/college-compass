@@ -17,6 +17,7 @@ import CollegeGallery, { type GalleryImage } from '@/components/CollegeGallery';
 import ReviewsSection from '@/components/ReviewsSection';
 import { formatFees, formatPackage } from '@/lib/format';
 import { useCompare } from '@/contexts/CompareContext';
+import { heroImageUrl, siteUrl, withBaseUrl } from '@/lib/site-meta';
 
 const TYPE_COLORS: Record<string, string> = {
   IIT: 'bg-blue-100 text-blue-700 border-blue-200',
@@ -134,28 +135,34 @@ export default function CollegeDetailPage() {
 
   const selected = isSelected(college.id);
   const gradient = TYPE_GRADIENT[college.type] || 'from-gray-600 to-gray-700';
+  const pageUrl = withBaseUrl(`/colleges/${college.id}`);
+  const rootUrl = siteUrl || withBaseUrl('/');
+  const collegesUrl = withBaseUrl('/colleges');
+  const ogImage = college.gallery[0]?.slot
+    ? withBaseUrl(`/images/${college.gallery[0].slot}.svg`)
+    : heroImageUrl;
 
   return (
     <>
       <Helmet>
         <title>{college.name} — Fees, Placements & Courses | College Compass</title>
         <meta name="description" content={`${college.name} in ${college.location} — Annual fees ${formatFees(college.fees)}, ${college.placement_percentage}% placement rate, avg package ${formatPackage(college.avg_package)}. View courses, reviews, and admission details.`} />
-        <link rel="canonical" href={`https://osovrwkgq3.preview.c36.airoapp.ai/colleges/${college.id}`} />
+        <link rel="canonical" href={pageUrl} />
         <meta property="og:title" content={`${college.name} — College Compass`} />
         <meta property="og:description" content={`${college.name} in ${college.location}. Fees: ${formatFees(college.fees)} | Placement: ${college.placement_percentage}% | Avg Package: ${formatPackage(college.avg_package)}`} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://osovrwkgq3.preview.c36.airoapp.ai/colleges/${college.id}`} />
-        <meta property="og:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/college-gallery/campus-aerial" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={ogImage} />
         <meta property="og:image:alt" content={`${college.name} campus`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={`${college.name} — College Compass`} />
         <meta name="twitter:description" content={`${college.name} in ${college.location}. Fees: ${formatFees(college.fees)} | Placement: ${college.placement_percentage}%`} />
-        <meta name="twitter:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/college-gallery/campus-aerial" />
+        <meta name="twitter:image" content={ogImage} />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "EducationalOrganization",
           "name": college.name,
-          "url": `https://osovrwkgq3.preview.c36.airoapp.ai/colleges/${college.id}`,
+          "url": pageUrl,
           "description": college.description,
           "address": {
             "@type": "PostalAddress",
@@ -176,9 +183,9 @@ export default function CollegeDetailPage() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://osovrwkgq3.preview.c36.airoapp.ai/" },
-            { "@type": "ListItem", "position": 2, "name": "Colleges", "item": "https://osovrwkgq3.preview.c36.airoapp.ai/colleges" },
-            { "@type": "ListItem", "position": 3, "name": college.name, "item": `https://osovrwkgq3.preview.c36.airoapp.ai/colleges/${college.id}` }
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": rootUrl },
+            { "@type": "ListItem", "position": 2, "name": "Colleges", "item": collegesUrl },
+            { "@type": "ListItem", "position": 3, "name": college.name, "item": pageUrl }
           ]
         })}</script>
       </Helmet>
@@ -253,7 +260,7 @@ export default function CollegeDetailPage() {
             {/* Share */}
             <div className="shrink-0">
               <ShareButton
-                url={`https://osovrwkgq3.preview.c36.airoapp.ai/colleges/${college.id}`}
+                url={pageUrl}
                 title={`Check out ${college.name} on College Compass`}
                 description={`${college.name} in ${college.location}. Fees: ${formatFees(college.fees)} | Placement: ${college.placement_percentage}% | Avg Package: ${formatPackage(college.avg_package)}`}
               />

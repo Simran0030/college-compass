@@ -6,6 +6,7 @@ import { motion } from 'motion/react';
 import { Helmet } from '@dr.pogodin/react-helmet';
 import CollegeCard from '@/components/CollegeCard';
 import CardSkeleton from '@/components/CardSkeleton';
+import { heroImagePath, heroImageUrl, siteUrl, withBaseUrl } from '@/lib/site-meta';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -85,6 +86,8 @@ const QUICK_FILTERS = [
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
+  const pageUrl = withBaseUrl('/');
+  const searchUrl = withBaseUrl('/colleges?search={search_term_string}');
 
   const { data: featuredData, isLoading } = useQuery({
     queryKey: ['colleges', 'featured'],
@@ -109,28 +112,28 @@ export default function HomePage() {
       <Helmet>
         <title>College Compass — Find Your Perfect College in India</title>
         <meta name="description" content="Discover, compare, and predict college admissions across India's top IITs, NITs, IIMs, and private universities. Make informed decisions with real data." />
-        <link rel="canonical" href="https://osovrwkgq3.preview.c36.airoapp.ai/" />
+        <link rel="canonical" href={pageUrl} />
         <meta property="og:title" content="College Compass — Find Your Perfect College in India" />
         <meta property="og:description" content="Discover, compare, and predict college admissions across India's top IITs, NITs, IIMs, and private universities. Make informed decisions with real data." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://osovrwkgq3.preview.c36.airoapp.ai/" />
-        <meta property="og:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/pages/home/hero" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={heroImageUrl} />
         <meta property="og:image:alt" content="College Compass — India's college discovery platform" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="College Compass — Find Your Perfect College in India" />
         <meta name="twitter:description" content="Discover, compare, and predict college admissions across India's top IITs, NITs, IIMs, and private universities." />
-        <meta name="twitter:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/pages/home/hero" />
+        <meta name="twitter:image" content={heroImageUrl} />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
           "name": "College Compass",
-          "url": "https://osovrwkgq3.preview.c36.airoapp.ai/",
+          "url": siteUrl || pageUrl,
           "description": "India's #1 college discovery platform. Explore 40+ top colleges, compare fees and placements, and predict your admission chances.",
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://osovrwkgq3.preview.c36.airoapp.ai/colleges?search={search_term_string}"
+              "urlTemplate": searchUrl,
             },
             "query-input": "required name=search_term_string"
           }
@@ -139,7 +142,7 @@ export default function HomePage() {
           "@context": "https://schema.org",
           "@type": "Organization",
           "name": "College Compass",
-          "url": "https://osovrwkgq3.preview.c36.airoapp.ai/",
+          "url": siteUrl || pageUrl,
           "description": "India's leading college discovery and comparison platform for students.",
           "sameAs": []
         })}</script>
@@ -149,7 +152,7 @@ export default function HomePage() {
       <section className="relative text-white overflow-hidden min-h-[88vh] flex items-center">
         <div className="absolute inset-0">
           <img
-            src="/airo-assets/images/pages/home/hero"
+            src={heroImagePath}
             alt="University campus"
             className="w-full h-full object-cover"
             fetchPriority="high"

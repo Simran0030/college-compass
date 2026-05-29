@@ -13,7 +13,7 @@ interface CollegeGalleryProps {
 }
 
 function slotToUrl(slot: string) {
-  return `/airo-assets/images/${slot}`;
+  return `/images/${slot}.svg`;
 }
 
 export default function CollegeGallery({ images, collegeName }: CollegeGalleryProps) {

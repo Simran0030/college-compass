@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-label="Sports Facilities">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="60%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f766e" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.1" r="0.8">
+      <stop offset="0%" stop-color="#34d399" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)" />
+  <rect width="1600" height="900" fill="url(#glow)" />
+  <g fill="#e2e8f0" font-family="'Inter', 'Segoe UI', Arial, sans-serif" text-anchor="middle">
+    <text x="800" y="430" font-size="64" font-weight="700">Sports Facilities</text>
+    <text x="800" y="500" font-size="28" fill="#94a3b8">Sample gallery image</text>
+  </g>
+  <g fill="#22c55e" opacity="0.25">
+    <circle cx="1400" cy="140" r="120" />
+    <circle cx="240" cy="720" r="160" />
+  </g>
+</svg>

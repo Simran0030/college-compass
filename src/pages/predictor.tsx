@@ -8,6 +8,7 @@ import {
 import { motion, AnimatePresence } from 'motion/react';
 import { Helmet } from '@dr.pogodin/react-helmet';
 import { formatFees, formatPackage } from '@/lib/format';
+import { heroImageUrl, siteUrl, withBaseUrl } from '@/lib/site-meta';
 import RatingStars from '@/components/RatingStars';
 
 /* ─── Constants ─────────────────────────────────────────── */
@@ -212,6 +213,8 @@ function ResultCard({ college, index, userRank }: { college: PredictedCollege; i
 /* ─── Page ───────────────────────────────────────────────── */
 
 export default function PredictorPage() {
+  const pageUrl = withBaseUrl('/predictor');
+  const rootUrl = siteUrl || withBaseUrl('/');
   const [exam, setExam] = useState('');
   const [rank, setRank] = useState('');
   const [result, setResult] = useState<PredictResult | null>(null);
@@ -249,26 +252,26 @@ export default function PredictorPage() {
       <Helmet>
         <title>College Admission Predictor — College Compass</title>
         <meta name="description" content="Predict which Indian colleges you can get admission to based on your JEE, CAT, GATE, or BITSAT rank. Instant results from 40+ top institutions." />
-        <link rel="canonical" href="https://osovrwkgq3.preview.c36.airoapp.ai/predictor" />
+        <link rel="canonical" href={pageUrl} />
         <meta property="og:title" content="College Admission Predictor — College Compass" />
         <meta property="og:description" content="Enter your exam and rank to instantly see which IITs, NITs, IIMs, and private colleges you're eligible for. Free admission predictor tool." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://osovrwkgq3.preview.c36.airoapp.ai/predictor" />
-        <meta property="og:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/pages/home/hero" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={heroImageUrl} />
         <meta property="og:image:alt" content="College admission predictor tool on College Compass" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="College Admission Predictor — College Compass" />
         <meta name="twitter:description" content="Enter your exam and rank to instantly see which colleges you're eligible for. Free tool." />
-        <meta name="twitter:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/pages/home/hero" />
+        <meta name="twitter:image" content={heroImageUrl} />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebApplication",
           "name": "College Admission Predictor",
-          "url": "https://osovrwkgq3.preview.c36.airoapp.ai/predictor",
+          "url": pageUrl,
           "description": "Predict college admissions based on your JEE, CAT, GATE, or BITSAT rank.",
           "applicationCategory": "EducationApplication",
           "operatingSystem": "Web",
-          "isPartOf": { "@type": "WebSite", "name": "College Compass", "url": "https://osovrwkgq3.preview.c36.airoapp.ai/" }
+          "isPartOf": { "@type": "WebSite", "name": "College Compass", "url": rootUrl }
         })}</script>
       </Helmet>
 

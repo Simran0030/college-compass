@@ -20,7 +20,7 @@ export interface College {
   gallery: GalleryImage[];
 }
 
-// Shared gallery images served via media slots
+// Shared gallery images served from public/images/college-gallery
 const GALLERY_IMAGES: GalleryImage[] = [
   { slot: "college-gallery/campus-aerial",  caption: "Campus Overview" },
   { slot: "college-gallery/library",        caption: "Central Library" },

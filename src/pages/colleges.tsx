@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Helmet } from '@dr.pogodin/react-helmet';
 import CollegeCard, { type CollegeCardData } from '@/components/CollegeCard';
 import CardSkeleton from '@/components/CardSkeleton';
+import { heroImageUrl, siteUrl, withBaseUrl } from '@/lib/site-meta';
 
 const COLLEGE_TYPES = ['IIT', 'NIT', 'IIM', 'IIIT', 'Private', 'Deemed', 'State'];
 
@@ -69,6 +70,8 @@ export default function CollegesPage() {
   const [page, setPage] = useState(1);
   const [showFilters, setShowFilters] = useState(false);
   const [sort, setSort] = useState('rating');
+  const pageUrl = withBaseUrl('/colleges');
+  const rootUrl = siteUrl || withBaseUrl('/');
 
   const { data: locations } = useQuery({
     queryKey: ['locations'],
@@ -135,27 +138,27 @@ export default function CollegesPage() {
       <Helmet>
         <title>Browse Colleges — College Compass</title>
         <meta name="description" content="Browse and filter India's top engineering, management, and science colleges. Filter by location, fees, type, and placement rate across 40+ institutions." />
-        <link rel="canonical" href="https://osovrwkgq3.preview.c36.airoapp.ai/colleges" />
+        <link rel="canonical" href={pageUrl} />
         <meta property="og:title" content="Browse Colleges — College Compass" />
         <meta property="og:description" content="Explore 40+ top Indian colleges — IITs, NITs, IIMs, IIITs, and private universities. Filter by fees, location, placement rate, and more." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://osovrwkgq3.preview.c36.airoapp.ai/colleges" />
-        <meta property="og:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/pages/home/hero" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={heroImageUrl} />
         <meta property="og:image:alt" content="Browse top colleges in India on College Compass" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Browse Colleges — College Compass" />
         <meta name="twitter:description" content="Explore 40+ top Indian colleges. Filter by fees, location, placement rate, and more." />
-        <meta name="twitter:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/pages/home/hero" />
+        <meta name="twitter:image" content={heroImageUrl} />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           "name": "Browse Colleges — College Compass",
           "description": "Browse and filter India's top engineering, management, and science colleges including IITs, NITs, IIMs, and private universities.",
-          "url": "https://osovrwkgq3.preview.c36.airoapp.ai/colleges",
+          "url": pageUrl,
           "isPartOf": {
             "@type": "WebSite",
             "name": "College Compass",
-            "url": "https://osovrwkgq3.preview.c36.airoapp.ai/"
+            "url": rootUrl
           }
         })}</script>
       </Helmet>

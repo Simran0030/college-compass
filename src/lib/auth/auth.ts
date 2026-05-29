@@ -4,7 +4,7 @@
  * Supports both Email/Password and OAuth authentication.
  * Enable/disable methods by uncommenting the relevant sections.
  *
- * Secrets (via getSecret from #airo/secrets):
+ * Secrets (via getSecret from lib/secrets):
  * - BETTER_AUTH_SECRET: Session encryption key (auto-generated during install)
  * - OAuth credentials (GOOGLE_CLIENT_ID, etc.) for social login
  *
@@ -17,7 +17,7 @@ import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { db } from '@/server/db/client';
 import { user, session, account, verification } from '@/server/db/schema';
-import { getSecret } from '#airo/secrets';
+import { getSecret } from '@/lib/secrets';
 
 // Lazy singleton — betterAuth() must NOT run at module init time.
 //
@@ -51,10 +51,15 @@ export function getAuth() {
 
     secret: authSecret,
 
-    // CORS: Trusts .airoapp.ai subdomains and localhost by default.
-    // If your app has a custom domain, add it here or set BETTER_AUTH_TRUSTED_ORIGINS.
+    // CORS: Trusts same-origin + localhost by default.
+    // Add more origins via BETTER_AUTH_TRUSTED_ORIGINS (comma-separated).
     trustedOrigins: (request?: Request) => {
-      if (!request) return [];
+      const extraOrigins = (process.env.BETTER_AUTH_TRUSTED_ORIGINS ?? '')
+        .split(',')
+        .map((origin) => origin.trim())
+        .filter(Boolean);
+
+      if (!request) return extraOrigins;
 
       const origin = request.headers.get('origin');
       if (!origin) return [];
@@ -63,34 +68,22 @@ export function getAuth() {
         const originUrl = new URL(origin);
         const hostname = originUrl.hostname;
 
-        // Trust all airoapp.ai subdomains
-        if (hostname.endsWith('.airoapp.ai') || hostname.endsWith('.test-airoapp.ai')) {
-          return [origin];
+        const hostHeader = request.headers.get('host');
+        if (hostHeader && originUrl.host === hostHeader) {
+          return [origin, ...extraOrigins];
         }
 
         // Trust localhost for development
         if (hostname === 'localhost' || hostname === '127.0.0.1') {
-          return [origin];
+          return [origin, ...extraOrigins];
         }
 
-        return [];
+        if (extraOrigins.includes(origin)) return extraOrigins;
+        return extraOrigins;
       } catch {
-        return [];
+        return extraOrigins;
       }
     },
-
-    // In preview mode the site runs in an iframe embedded by the builder on a different
-    // origin, so cookies need SameSite=None + Secure + Partitioned (CHIPS) for cross-site
-    // access. In publish mode (standalone) we use the safer SameSite=Lax default.
-    ...(process.env.AIRO_PREVIEW === 'true' && {
-      advanced: {
-        defaultCookieAttributes: {
-          sameSite: 'none' as const,
-          secure: true,
-          partitioned: true,
-        },
-      },
-    }),
 
     emailAndPassword: { enabled: true },
 

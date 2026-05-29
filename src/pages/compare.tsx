@@ -6,6 +6,7 @@ import { Helmet } from '@dr.pogodin/react-helmet';
 import { useCompare } from '@/contexts/CompareContext';
 import { useWishlist } from '@/contexts/WishlistContext';
 import { formatFees, formatPackage } from '@/lib/format';
+import { heroImageUrl, siteUrl, withBaseUrl } from '@/lib/site-meta';
 import RatingStars from '@/components/RatingStars';
 
 interface College {
@@ -132,6 +133,8 @@ function MetricRow({ label, icon, colleges, bestIdx, renderValue, renderBar, win
 export default function ComparePage() {
   const { compareIds, removeCollege, clearAll } = useCompare();
   const { wishlistIds, addToWishlist } = useWishlist();
+  const pageUrl = withBaseUrl('/compare');
+  const rootUrl = siteUrl || withBaseUrl('/');
 
   const { data: colleges, isLoading } = useQuery<College[]>({
     queryKey: ['compare', compareIds],
@@ -156,27 +159,27 @@ export default function ComparePage() {
       <Helmet>
         <title>Compare Colleges Side-by-Side — College Compass</title>
         <meta name="description" content="Compare up to 3 Indian colleges side-by-side on fees, placement rates, average packages, ratings, and more. Make a confident college choice." />
-        <link rel="canonical" href="https://osovrwkgq3.preview.c36.airoapp.ai/compare" />
+        <link rel="canonical" href={pageUrl} />
         <meta property="og:title" content="Compare Colleges Side-by-Side — College Compass" />
         <meta property="og:description" content="Compare up to 3 colleges on fees, placements, ratings, and more with our visual comparison tool. Find the best college for you." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://osovrwkgq3.preview.c36.airoapp.ai/compare" />
-        <meta property="og:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/pages/home/hero" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={heroImageUrl} />
         <meta property="og:image:alt" content="College comparison tool on College Compass" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Compare Colleges Side-by-Side — College Compass" />
         <meta name="twitter:description" content="Compare up to 3 colleges on fees, placements, ratings, and more. Find the best college for you." />
-        <meta name="twitter:image" content="https://osovrwkgq3.preview.c36.airoapp.ai/airo-assets/images/pages/home/hero" />
+        <meta name="twitter:image" content={heroImageUrl} />
         <script type="application/ld+json">{JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebPage",
           "name": "Compare Colleges — College Compass",
           "description": "Compare up to 3 Indian colleges side-by-side on fees, placement rates, average packages, and ratings.",
-          "url": "https://osovrwkgq3.preview.c36.airoapp.ai/compare",
+          "url": pageUrl,
           "isPartOf": {
             "@type": "WebSite",
             "name": "College Compass",
-            "url": "https://osovrwkgq3.preview.c36.airoapp.ai/"
+            "url": rootUrl
           }
         })}</script>
       </Helmet>
