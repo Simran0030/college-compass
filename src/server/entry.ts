@@ -1,7 +1,6 @@
 import express, { type NextFunction, type Request, type Response } from "express";
-import { fileURLToPath } from "node:url";
-import { dirname, extname, join } from "node:path";
-import { readFileSync } from "node:fs";
+import { extname, join } from "node:path";
+import { existsSync, readFileSync } from "node:fs";
 
 // <api-imports>
 import auth_action_get_0 from "./api/auth/[action]/GET";
@@ -110,9 +109,14 @@ app.get("/sitemap.xml", (req, res) => {
 	res.type("application/xml").set("Cache-Control", "public, max-age=3600").send(body);
 });
 
-if (import.meta.env?.PROD) {
-	const __dirname = dirname(fileURLToPath(import.meta.url));
-	const clientDir = join(__dirname, "client");
+const isProd =
+	process.env.NODE_ENV === "production" || Boolean(import.meta.env?.PROD);
+
+if (isProd) {
+	const distDir = join(process.cwd(), "dist");
+	const clientDir = existsSync(join(distDir, "client"))
+		? join(distDir, "client")
+		: distDir;
 
 	app.use(
 		express.static(clientDir, {
